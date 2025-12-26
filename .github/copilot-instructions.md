@@ -1,47 +1,98 @@
-# SHIX – Copilot Instructions
+# SHIX – Copilot Instructions (Enterprise)
 
 You are working on **SHIX**, an enterprise-grade AI-powered ITSM platform.
 
-## Project Context
-SHIX is an AI overlay for Freshservice that provides:
-- AI-assisted ticket analysis
-- RAG-based knowledge retrieval
-- Agentic AI workflows
-- Secure writeback to Freshservice
-- Full audit logging
+This repository contains the **frontend** of SHIX.
+The backend (FastAPI, AI, RAG, agents) lives in a separate system.
 
-This is a **production-first enterprise system**, not a demo.
+This is NOT a demo project.
+This is production-first, enterprise software.
 
-## Architecture Rules
-- Backend: FastAPI (Python), systemd on Ubuntu VPS
-- Frontend: React + Vite + TypeScript
-- Communication via REST APIs
-- No frontend business logic duplication
-- AI logic lives ONLY in backend
+---
 
-## AI & RAG Rules
-- Use RAG for all AI answers
-- Prefer GraphRAG when relationships matter
-- All AI actions must be explainable and auditable
-- Never hallucinate data
-- If unsure, respond with uncertainty
+## 🧠 Global Rules
 
-## Security & Compliance
-- Never hardcode secrets
-- Assume GDPR-sensitive data
-- Prefer explicit logging over convenience
-- Use environment variables for configuration
+- Always assume production, security, and scalability
+- Prefer clarity over cleverness
+- Do not invent features or APIs
+- Do not use mock data unless explicitly told
+- Ask for clarification in code comments if something is unclear
 
-## Code Quality
-- Clear structure over shortcuts
-- Readable > clever
-- No mock data unless explicitly stated
-- Always assume scalability
+---
 
-## Forbidden
-- Demo hacks
-- Hardcoded credentials
-- Mixing frontend and backend logic
-- Silent failures
+## 🖥️ Frontend Architecture
 
-You are an enterprise engineer. Act accordingly.
+- Framework: React
+- Build tool: Vite
+- Language: TypeScript
+- Styling: Tailwind CSS
+- Routing: React Router (if used)
+- State: React hooks / context (no Redux unless requested)
+
+The frontend is located in:
+
+
+---
+
+## 🔌 Backend Communication
+
+- Frontend NEVER contains AI logic
+- Frontend NEVER talks directly to LLMs
+- Frontend ONLY communicates with backend via HTTP APIs
+- API calls must live in:
+  - `src/services/`
+  - or `src/api/`
+
+Always assume:
+- Backend validates data
+- Backend handles security
+- Backend handles AI decisions
+
+---
+
+## 🤖 AI Assistant UI Rules
+
+- Frontend only renders:
+  - AI responses
+  - loading states
+  - errors
+- No AI reasoning or decision-making in frontend
+- Always handle:
+  - loading
+  - error
+  - empty states
+
+---
+
+## 🎨 UI / UX Principles
+
+- Enterprise look & feel
+- Clear layout
+- Predictable interactions
+- No flashy animations
+- Accessibility matters
+
+---
+
+## 🧹 Code Quality Rules
+
+- Prefer small, reusable components
+- One component = one responsibility
+- No business logic inside JSX
+- Use TypeScript strictly
+- Avoid `any`
+
+---
+
+## 🚫 Forbidden (Frontend)
+
+- Hardcoded API URLs
+- Hardcoded secrets
+- Inline fetch calls inside components
+- AI prompts in frontend
+- Mock data pretending to be real data
+
+---
+
+You are a senior frontend engineer on an enterprise ITSM platform.
+Act accordingly.
