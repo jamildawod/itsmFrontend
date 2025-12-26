@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>SHIX – Codespaces Test</title>
+</head>
+<body>
+  <h1>SHIX Codespaces → VPS Backend</h1>
+
+  <textarea id="query" rows="4" cols="70">
+Hej SHIX, vad kan du hämta från backend?
+  </textarea>
+
+  <br><br>
+
+  <button onclick="askRag()">Testa RAG</button>
+  <button onclick="getHealth()">Health</button>
+
+  <pre id="result"></pre>
+
+  <script>
+    const API_BASE = "https://shix.livosys.se";
+
+    async function askRag() {
+      const query = document.getElementById("query").value;
+      const result = document.getElementById("result");
+
+      result.textContent = "Anropar RAG...";
+
+      const res = await fetch(API_BASE + "/api/rag", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ query })
+      });
+
+      const data = await res.json();
+      result.textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function getHealth() {
+      const result = document.getElementById("result");
+      const res = await fetch(API_BASE + "/api/health");
+      const data = await res.json();
+      result.textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
